@@ -16,25 +16,6 @@ export default [
                 minimize: true,
                 extensions: ['.css', '.scss']
             }),
-            {
-                buildEnd() {
-                  const fs = require('fs');
-          
-                  function getFileSizeInBytes(filename) {
-                    const stats = fs.statSync(filename);
-                    const fileSizeInBytes = stats.size;
-                    return fileSizeInBytes;
-                  }
-          
-                  const sizeBefore = getFileSizeInBytes('path/to/css/file.css');
-                  //... minimize 적용 ...
-                  const sizeAfter = getFileSizeInBytes('path/to/css/file.css');
-          
-                  console.log(`Before: ${sizeBefore} bytes`);
-                  console.log(`After: ${sizeAfter} bytes`);
-                  console.log(`Difference: ${sizeBefore - sizeAfter} bytes`);
-                }
-              }
         ]
     },
     {
