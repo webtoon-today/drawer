@@ -8,9 +8,6 @@
     transition: 2s ease;
     z-index: 1;
 
-    &.DrawerOn{
-        opacity: 1;
-    }
     &.DrawerOff{
         animation-name: background-out;
         animation-duration: 1s;
