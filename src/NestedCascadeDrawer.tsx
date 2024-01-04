@@ -3,15 +3,17 @@ import React, { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useStat
 import './NestedCascadeDrawer.scss';
 import UseAnimation from "./UseAnimation";
 
-export const NestedCascadeDrawer = ({ 
-    children, open, onClose: givenOnClose, hasModal=false, className, style,
-}:{
+export type nestedDrawerPropsType = {
     children: ReactNode,
     open: boolean, onClose: Function,
     hasModal?: boolean,
     className?: string,
     style?:CSSProperties,
-}) => {
+}
+
+export const NestedCascadeDrawer = ({ 
+    children, open, onClose: givenOnClose, hasModal=false, className, style,
+}: nestedDrawerPropsType) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [ depth, setDepth ] = useState<number>(0);

@@ -1,4 +1,5 @@
 import typescript from "@rollup/plugin-typescript";
+import { dts } from "rollup-plugin-dts";
 import postcss from "rollup-plugin-postcss";
 
 export default [
@@ -13,6 +14,19 @@ export default [
             postcss({
                 inject: true,
                 extensions: ['.css', '.scss'],
+            })
+        ]
+    },
+    {
+        input: 'src/main.ts',
+        output: {
+            file: './index.d.ts',
+            format: 'es'
+        },
+        plugins: [
+            dts(),
+            postcss({
+                inject: false
             })
         ]
     }
