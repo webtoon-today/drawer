@@ -10,12 +10,12 @@
 
     &.DrawerOff{
         animation-name: background-out;
-        animation-duration: 1s;
+        animation-duration: 0.6s;
         animation-fill-mode: forwards;
         
         .CascadeDrawer{
             animation-name: modal-out-web;
-            animation-duration: 1s;
+            animation-duration: 0.6s;
             animation-fill-mode: forwards;
         }
     }
