@@ -21,6 +21,18 @@ PERFORMANCE OF THIS SOFTWARE.
 /* global Reflect, Promise, SuppressedError, Symbol */
 
 
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
 function __awaiter(thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -124,7 +136,8 @@ const NestedCascadeDrawer = ({ children, open, onClose: givenOnClose, hasModal =
             }, children: jsxRuntime.jsx("div", { className: 'DrawerInner', children: children }) }) }));
 };
 
-const PortalDrawer = (isClient, ...props) => {
+const PortalDrawer = (_a) => {
+    var { isClient } = _a, props = __rest(_a, ["isClient"]);
     if (!isClient) {
         return jsxRuntime.jsx(jsxRuntime.Fragment, {});
     }

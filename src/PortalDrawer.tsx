@@ -1,8 +1,8 @@
 import React from "react";
-import { NestedCascadeDrawer } from "./NestedCascadeDrawer";
+import { NestedCascadeDrawer, nestedDrawerPropsType } from "./NestedCascadeDrawer";
 import { createPortal } from 'react-dom';
 
-export const PortalDrawer = ( isClient: boolean, ...props: any ) => {
+export const PortalDrawer = ({isClient, ...props}:{ isClient: boolean } & nestedDrawerPropsType) => {
 
     if ( !isClient ) {
         return <></>;
