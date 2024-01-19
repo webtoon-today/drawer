@@ -2,6 +2,7 @@
 
 var jsxRuntime = require('react/jsx-runtime');
 var react = require('react');
+var reactDom = require('react-dom');
 
 /******************************************************************************
 Copyright (c) Microsoft Corporation.
@@ -19,6 +20,18 @@ PERFORMANCE OF THIS SOFTWARE.
 ***************************************************************************** */
 /* global Reflect, Promise, SuppressedError, Symbol */
 
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
 
 function __awaiter(thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
@@ -62,7 +75,7 @@ function styleInject(css, ref) {
   }
 }
 
-var css_248z = ".BackgroundScreen {\n  position: fixed;\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100vh;\n  background-color: rgba(36, 42, 48, 0.6);\n  transition: 2s ease;\n  z-index: 1;\n}\n.BackgroundScreen.DrawerOff {\n  animation-name: background-out;\n  animation-duration: 1s;\n  animation-fill-mode: forwards;\n}\n.BackgroundScreen.DrawerOff .CascadeDrawer {\n  animation-name: modal-out-web;\n  animation-duration: 1s;\n  animation-fill-mode: forwards;\n}\n.BackgroundScreen .CascadeDrawer {\n  position: absolute;\n  top: 0;\n  right: 0;\n  width: 520px;\n  height: 100%;\n  border: none;\n  background-color: white;\n  transition: 0.5s ease;\n  animation-name: modal-in-web;\n  animation-duration: 0.5s;\n}\n@media (max-width: 700px) {\n  .BackgroundScreen .CascadeDrawer {\n    top: initial;\n    bottom: 0;\n    left: 0;\n    width: 100%;\n    height: 80%;\n    border-radius: 20px 20px 0 0;\n    overflow: hidden;\n  }\n}\n@media (min-width: 700px) {\n  .BackgroundScreen .CascadeDrawer[data-depth=\"0\"] {\n    padding-right: 0px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"1\"] {\n    padding-right: 20px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"2\"] {\n    padding-right: 40px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"3\"] {\n    padding-right: 60px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"4\"] {\n    padding-right: 80px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"5\"] {\n    padding-right: 100px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"6\"] {\n    padding-right: 120px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"7\"] {\n    padding-right: 140px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"8\"] {\n    padding-right: 160px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"9\"] {\n    padding-right: 180px;\n  }\n}\n@media (max-width: 700px) {\n  .BackgroundScreen .CascadeDrawer[data-depth=\"0\"] {\n    padding-bottom: 0px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"1\"] {\n    padding-bottom: 20px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"2\"] {\n    padding-bottom: 40px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"3\"] {\n    padding-bottom: 60px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"4\"] {\n    padding-bottom: 80px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"5\"] {\n    padding-bottom: 100px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"6\"] {\n    padding-bottom: 120px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"7\"] {\n    padding-bottom: 140px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"8\"] {\n    padding-bottom: 160px;\n  }\n  .BackgroundScreen .CascadeDrawer[data-depth=\"9\"] {\n    padding-bottom: 180px;\n  }\n}\n@media (max-width: 700px) {\n  .BackgroundScreen .CascadeDrawer {\n    animation-name: modal-in-mobile;\n  }\n}\n.BackgroundScreen .CascadeDrawer .DrawerInner {\n  position: relative;\n  width: 100%;\n  height: 100%;\n  box-sizing: border-box;\n  border: none;\n  border-radius: inherit;\n}\n@keyframes background-out {\n  from {\n    background-color: rgba(36, 42, 48, 0.6);\n  }\n  to {\n    background-color: rgba(36, 42, 48, 0);\n  }\n}\n@keyframes modal-out-web {\n  from {\n    transform: translateX(0);\n  }\n  to {\n    transform: translateX(100%);\n  }\n}\n@keyframes modal-in-web {\n  from {\n    transform: translateX(100%);\n  }\n  to {\n    transform: translateX(0);\n  }\n}\n@keyframes modal-out-mobile {\n  from {\n    transform: translateY(0);\n  }\n  to {\n    transform: translateY(100%);\n  }\n}\n@keyframes modal-in-mobile {\n  from {\n    transform: translateY(100%);\n  }\n  to {\n    transform: translateY(0);\n  }\n}";
+var css_248z = ".BackgroundScreen{background-color:rgba(36,42,48,.6);height:100vh;left:0;position:fixed;top:0;transition:2s ease;width:100%;z-index:1}.BackgroundScreen.DrawerOff{animation-duration:.6s;animation-fill-mode:forwards;animation-name:background-out}.BackgroundScreen.DrawerOff .CascadeDrawer{animation-duration:.6s;animation-fill-mode:forwards;animation-name:modal-out-web}.BackgroundScreen .CascadeDrawer{animation-duration:.5s;animation-name:modal-in-web;background-color:#fff;border:none;height:100%;position:absolute;right:0;top:0;transition:.5s ease;width:520px}@media (max-width:700px){.BackgroundScreen .CascadeDrawer{border-radius:20px 20px 0 0;bottom:0;height:80%;left:0;overflow:hidden;top:auto;width:100%}}@media (min-width:700px){.BackgroundScreen .CascadeDrawer[data-depth=\"0\"]{padding-right:0}.BackgroundScreen .CascadeDrawer[data-depth=\"1\"]{padding-right:20px}.BackgroundScreen .CascadeDrawer[data-depth=\"2\"]{padding-right:40px}.BackgroundScreen .CascadeDrawer[data-depth=\"3\"]{padding-right:60px}.BackgroundScreen .CascadeDrawer[data-depth=\"4\"]{padding-right:80px}.BackgroundScreen .CascadeDrawer[data-depth=\"5\"]{padding-right:100px}.BackgroundScreen .CascadeDrawer[data-depth=\"6\"]{padding-right:120px}.BackgroundScreen .CascadeDrawer[data-depth=\"7\"]{padding-right:140px}.BackgroundScreen .CascadeDrawer[data-depth=\"8\"]{padding-right:160px}.BackgroundScreen .CascadeDrawer[data-depth=\"9\"]{padding-right:180px}}@media (max-width:700px){.BackgroundScreen .CascadeDrawer[data-depth=\"0\"]{padding-bottom:0}.BackgroundScreen .CascadeDrawer[data-depth=\"1\"]{padding-bottom:20px}.BackgroundScreen .CascadeDrawer[data-depth=\"2\"]{padding-bottom:40px}.BackgroundScreen .CascadeDrawer[data-depth=\"3\"]{padding-bottom:60px}.BackgroundScreen .CascadeDrawer[data-depth=\"4\"]{padding-bottom:80px}.BackgroundScreen .CascadeDrawer[data-depth=\"5\"]{padding-bottom:100px}.BackgroundScreen .CascadeDrawer[data-depth=\"6\"]{padding-bottom:120px}.BackgroundScreen .CascadeDrawer[data-depth=\"7\"]{padding-bottom:140px}.BackgroundScreen .CascadeDrawer[data-depth=\"8\"]{padding-bottom:160px}.BackgroundScreen .CascadeDrawer[data-depth=\"9\"]{padding-bottom:180px}.BackgroundScreen .CascadeDrawer{animation-name:modal-in-mobile}}.BackgroundScreen .CascadeDrawer .DrawerInner{border:none;border-radius:inherit;box-sizing:border-box;height:100%;position:relative;width:100%}@keyframes background-out{0%{background-color:rgba(36,42,48,.6)}to{background-color:rgba(36,42,48,0)}}@keyframes modal-out-web{0%{transform:translateX(0)}to{transform:translateX(100%)}}@keyframes modal-in-web{0%{transform:translateX(100%)}to{transform:translateX(0)}}@keyframes modal-out-mobile{0%{transform:translateY(0)}to{transform:translateY(100%)}}@keyframes modal-in-mobile{0%{transform:translateY(100%)}to{transform:translateY(0)}}";
 styleInject(css_248z);
 
 const UseAnimation = (condition) => {
@@ -123,4 +136,13 @@ const NestedCascadeDrawer = ({ children, open, onClose: givenOnClose, hasModal =
             }, children: jsxRuntime.jsx("div", { className: 'DrawerInner', children: children }) }) }));
 };
 
+const PortalDrawer = (_a) => {
+    var { isClient } = _a, props = __rest(_a, ["isClient"]);
+    if (!isClient) {
+        return jsxRuntime.jsx(jsxRuntime.Fragment, {});
+    }
+    return (reactDom.createPortal(jsxRuntime.jsx(NestedCascadeDrawer, Object.assign({}, props)), document.body));
+};
+
 exports.NestedCascadeDrawer = NestedCascadeDrawer;
+exports.PortalDrawer = PortalDrawer;

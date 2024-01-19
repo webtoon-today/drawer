@@ -16,7 +16,8 @@ export default [
                 minimize: true,
                 extensions: ['.css', '.scss']
             }),
-        ]
+        ],
+        context: "window"
     },
     {
         input: 'src/main.ts',
@@ -29,6 +30,7 @@ export default [
             postcss({
                 inject: false
             })
-        ]
+        ],
+        context: "window",
     }
 ];
