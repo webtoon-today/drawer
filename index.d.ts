@@ -9,8 +9,8 @@ type nestedDrawerPropsType = {
     className?: string;
     style?: CSSProperties;
 };
-declare const NestedCascadeDrawer: (props: nestedDrawerPropsType) => react_jsx_runtime.JSX.Element;
+declare const NestedCascadeDrawer: ({ children, open, onClose: givenOnClose, hasModal, className, style, }: nestedDrawerPropsType) => react_jsx_runtime.JSX.Element;
 
-declare const PortalDrawer: (props: nestedDrawerPropsType & {isClient: boolean} ) => react_jsx_runtime.JSX.Element;
+declare const PortalDrawer: (isClient: boolean, ...props: any) => react_jsx_runtime.JSX.Element;
 
 export { NestedCascadeDrawer, PortalDrawer, type nestedDrawerPropsType };
