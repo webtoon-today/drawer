@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, ReactNode, useEffect, useRef, useState } from "react";
 
 import './NestedCascadeDrawer.scss';
 import UseAnimation from "./UseAnimation";
@@ -17,46 +17,54 @@ export const NestedCascadeDrawer = ({
     const ref = useRef<HTMLDivElement>(null);
 
     const [ depth, setDepth ] = useState<number>(0);
-    const [ isNesting, setIsNesting ] = useState<boolean>(false);
+    const [ isUpdating, setIsUpdating ] = useState<boolean>(false);
     const { isRender, onTransitionEnd, isAnimating } = UseAnimation(open);
 
     useEffect(() => {
-        if ( ref?.current ) {
+        if ( ref?.current ) {   
             const calculatedDepth = ref?.current.querySelectorAll('.CascadeDrawer').length - 1
             setDepth( calculatedDepth < 0 ? 0 : calculatedDepth );
         }
     },[children])
 
-    const setNesting = (e: MouseEvent) => {
-        setIsNesting(true);
-
+    useEffect(() => {
+        if ( !ref?.current ) return;
+        
         if ( !hasModal ) {
-            let parent = e.currentTarget as HTMLElement;
-            if ( !parent ) return;
-    
-            while (parent !== document.body){
-                if (parent?.classList.contains('CascadeDrawer')){
-                    parent?.setAttribute('data-depth', `${parent?.querySelectorAll('.CascadeDrawer').length - 1 || 0}`);
+            let parent = ref?.current as HTMLElement;
+            while ( parent !== document.body ) {
+                if ( parent?.classList.contains('CascadeDrawer')) {
+                    parent?.setAttribute('data-depth', `${parent?.querySelectorAll(".CascadeDrawer").length - 1 || 0}`)
                 }
-    
+
                 if ( parent?.parentElement ) {
                     parent = parent?.parentElement;
                 }
             }
         }
-        
-        setIsNesting(false);
-    }
+    },[hasModal, open])
+
+    useEffect(() => {
+        if ( isUpdating ) {
+            givenOnClose();
+            setIsUpdating(false);
+        }
+    },[isUpdating, isAnimating, givenOnClose])
     
     if (!isRender) {
         return <></>;
     }
-
-    return (<div className={`BackgroundScreen ${className} ${isAnimating?"DrawerOn":"DrawerOff"}`} onTransitionEnd={onTransitionEnd} onAnimationEnd={onTransitionEnd} ref={ref} onClick={ async (e) => {
-        if ( isNesting ) return;
-        setNesting(e);
-        givenOnClose();
-    }}  >
+    
+    return (
+    <div 
+        className={`BackgroundScreen ${className} ${isAnimating?"DrawerOn":"DrawerOff"}`} 
+        onTransitionEnd={onTransitionEnd} 
+        onAnimationEnd={onTransitionEnd} 
+        ref={ref} 
+        onClick={ async (e) => {
+            setIsUpdating(true);
+        }}  
+    >
             <div className={`CascadeDrawer`}
                 {...{"data-depth": depth}}
                 onClick={(e)=>{
