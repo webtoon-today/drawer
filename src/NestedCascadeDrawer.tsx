@@ -1,4 +1,4 @@
-import React, { CSSProperties, MouseEvent, ReactNode, useEffect, useRef, useState } from "react";
+import React, { CSSProperties, ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import './NestedCascadeDrawer.scss';
 import UseAnimation from "./UseAnimation";
@@ -12,51 +12,61 @@ export type nestedDrawerPropsType = {
 }
 
 export const NestedCascadeDrawer = ({ 
-    children, open, onClose: givenOnClose, hasModal=false, className, style,
+    children, open, onClose: givenOnClose, hasModal=false, className = "", style,
 }: nestedDrawerPropsType) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const [ depth, setDepth ] = useState<number>(0);
-    const [ isNesting, setIsNesting ] = useState<boolean>(false);
     const { isRender, onTransitionEnd, isAnimating } = UseAnimation(open);
 
-    useEffect(() => {
-        if ( ref?.current ) {
-            const calculatedDepth = ref?.current.querySelectorAll('.CascadeDrawer').length - 1
-            setDepth( calculatedDepth < 0 ? 0 : calculatedDepth );
-        }
-    },[children])
+    useEffect(()=>{
+        const handleDrawerOpen = ()=> {
+            const depth = (ref?.current?.querySelectorAll('.DrawerOn > .CascadeDrawer') || []).length;
+            setDepth(depth)
+            ref?.current?.querySelector('.CascadeDrawer')?.setAttribute('data-depth', `${depth}` )
+            console.log("event received", depth)
+        };
+        window.addEventListener('drawerOpen', handleDrawerOpen);
+        window.addEventListener('drawerClose', handleDrawerOpen);
 
-    const setNesting = (e: MouseEvent) => {
-        setIsNesting(true);
+        handleDrawerOpen();
 
-        if ( !hasModal ) {
-            let parent = e.currentTarget as HTMLElement;
-            if ( !parent ) return;
-    
-            while (parent !== document.body){
-                if (parent?.classList.contains('CascadeDrawer')){
-                    parent?.setAttribute('data-depth', `${parent?.querySelectorAll('.CascadeDrawer').length - 1 || 0}`);
-                }
-    
-                if ( parent?.parentElement ) {
-                    parent = parent?.parentElement;
-                }
-            }
+        return ()=>{
+            window.removeEventListener('drawerOpen', handleDrawerOpen);
+            window.removeEventListener('drawerClose', handleDrawerOpen);
         }
-        
-        setIsNesting(false);
-    }
+    },[])
+
+    useEffect(()=>{
+        const drawerOpenEvent = new CustomEvent('drawerOpen');
+
+        window.dispatchEvent(drawerOpenEvent);
+
+    },[open, isAnimating])
+
+
+    const handleClose = useCallback(()=>{
+
+        if ( !ref?.current ){ return; }
+
+        if ( hasModal ) { return; }
+
+        givenOnClose();
+
+    },[givenOnClose, hasModal, open])
     
     if (!isRender) {
         return <></>;
     }
-
-    return (<div className={`BackgroundScreen ${className} ${isAnimating?"DrawerOn":"DrawerOff"}`} onTransitionEnd={onTransitionEnd} onAnimationEnd={onTransitionEnd} ref={ref} onClick={ async (e) => {
-        if ( isNesting ) return;
-        setNesting(e);
-        givenOnClose();
-    }}  >
+    
+    return (
+    <div 
+        className={`BackgroundScreen ${className} ${isAnimating?"DrawerOn":"DrawerOff"}`} 
+        onTransitionEnd={onTransitionEnd} 
+        onAnimationEnd={onTransitionEnd} 
+        ref={ref} 
+        onClick={handleClose}  
+    >
             <div className={`CascadeDrawer`}
                 {...{"data-depth": depth}}
                 onClick={(e)=>{
