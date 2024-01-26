@@ -8,16 +8,6 @@
     transition: 2s ease;
     z-index: 1;
 
-    &.DrawerOn{
-        .CascadeDrawer{
-            animation-name: modal-in-web;
-            animation-duration: 0.5s;
-            
-            @media (max-width:700px) {
-                animation-name: modal-in-mobile;
-            }
-        }
-    }
     &.DrawerOff{
         animation-name: background-out;
         animation-duration: 0.6s;
@@ -39,6 +29,13 @@
         top: 0; right: 0;
         width: 520px; height: 100%;
         border: none;
+        
+        animation-name: modal-in-web;
+        animation-duration: 0.5s;
+        
+        @media (max-width:700px) {
+            animation-name: modal-in-mobile;
+        }
 
         @media (max-width: 700px) {
             top: initial;

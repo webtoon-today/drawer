@@ -7,7 +7,9 @@ function App() {
 
     const [open, setOpen] = useState(false);
 
-    const [nestedOpen, setNestedOpen] = useState(false);
+    const [open1, setOpen1] = useState(false);
+    const [open2, setOpen2] = useState(false);
+    const [open3, setOpen3] = useState(false);
 
     return (
         <div className="App">
@@ -24,12 +26,28 @@ function App() {
                 >
                     <div>{"Hello, world!"}</div>
                     <button
-                        onClick={()=>{setNestedOpen(true)}}
+                        onClick={()=>{setOpen1(true)}}
                     >{"다음 드로어 열기"}</button>
                     <NestedCascadeDrawer
-                        open={nestedOpen} onClose={()=>{setNestedOpen(false)}}
+                        open={open1} onClose={()=>{setOpen1(false)}}
                     >
                         {"Hello, world!2"}
+                        <button
+                            onClick={()=>{setOpen2(true)}}
+                        >{"다음 드로어 열기"}</button>
+                        <NestedCascadeDrawer
+                            open={open2} onClose={()=>{setOpen2(false)}}
+                        >
+                            {"Hello, world!3"}
+                            <button
+                                onClick={()=>{setOpen3(true)}}
+                            >{"다음 드로어 열기"}</button>
+                            <NestedCascadeDrawer
+                                open={open3} onClose={()=>{setOpen3(false)}}
+                            >
+                                {"Hello, world!4"}
+                            </NestedCascadeDrawer>
+                        </NestedCascadeDrawer>
                     </NestedCascadeDrawer>
 
                 </PortalDrawer>
